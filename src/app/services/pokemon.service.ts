@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { Pokemon } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
 
 const POKEMON_LIMIT = 10;
@@ -14,6 +14,8 @@ export class PokemonService {
   private static BASE_URL = 'https://pokeapi.co/api/v2/';
   private http = inject(HttpClient);
 
+  private cache = Array<Pokemon>();
+
   pokemonCount = signal(0);
 
   constructor() {}
@@ -23,8 +25,14 @@ export class PokemonService {
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
         this.pokemonCount.set(result.count);
+        return result.results;
+      }),
+      mergeMap((results) => {
+        const pokemonDetailsRequests = results.map((result) =>
+          this.http.get<Pokemon>(result.url)
+        );
 
-        return result.results as Pokemon[];
+        return forkJoin(pokemonDetailsRequests);
       })
     );
   }

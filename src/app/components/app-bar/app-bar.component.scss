@@ -1,5 +1,9 @@
+$amber: #FFC107;
+$light-background: #f4f4f4;
+$dark-text: #333333;
+
 .active-link {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: $amber;
     color: white !important;
     font-weight: bold;
     padding: 8px 12px;
@@ -10,7 +14,7 @@
 }
 
 .active-link:hover {
-    background: linear-gradient(135deg, #0056b3, #003f7f);
+    background-color: darken($amber, 10%);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }

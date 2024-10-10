@@ -16,7 +16,7 @@ export class NotFoundComponent {
   private router = inject(Router);
 
   options: AnimationOptions = {
-    path: '/assets/not-found.json',
+    path: '/assets/animations/not-found.json',
     loop: true,
     autoplay: true,
   };

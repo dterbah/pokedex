@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [ProgressSpinnerModule],
+  imports: [LottieComponent],
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',
 })
@@ -13,4 +15,10 @@ export class LoadingComponent {
   private isLoadingService = inject(LoadingService);
 
   isLoading = this.isLoadingService.isAppLoading();
+
+  options: AnimationOptions = {
+    path: '/assets/animations/spinner.json',
+    loop: true,
+    autoplay: Boolean(this.isLoading),
+  };
 }

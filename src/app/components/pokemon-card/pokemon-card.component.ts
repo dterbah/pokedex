@@ -9,21 +9,24 @@ import {
   signal,
 } from '@angular/core';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Subscription, switchMap } from 'rxjs';
 import { Pokemon } from '../../models/pokemon.model';
 import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
 import { PokemonTypeService } from '../../services/pokemon-type.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { of, Subscription, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [CardModule, FirstLetterUpperPipe],
+  imports: [CardModule, FirstLetterUpperPipe, ButtonModule],
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss',
 })
 export class PokemonCardComponent implements OnDestroy {
   private pokemonTypeService = inject(PokemonTypeService);
+  private router = inject(Router);
 
   private typeSubscription: Subscription | undefined = undefined;
 
@@ -39,5 +42,9 @@ export class PokemonCardComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.typeSubscription?.unsubscribe();
+  }
+
+  goToPokemonDetails(pokemonName: string) {
+    this.router.navigate(['details', pokemonName]);
   }
 }

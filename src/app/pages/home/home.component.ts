@@ -4,11 +4,12 @@ import { CardModule } from 'primeng/card';
 import { switchMap } from 'rxjs';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
+import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardModule],
+  imports: [CardModule, FirstLetterUpperPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

@@ -2,10 +2,11 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { Pokemon } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, mergeMap, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
+import { toPokemon } from '../utils/pokemon.util';
 
-const POKEMON_LIMIT = 10;
+const POKEMON_LIMIT = 9;
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +30,26 @@ export class PokemonService {
       }),
       mergeMap((results) => {
         const pokemonDetailsRequests = results.map((result) =>
-          this.http.get<Pokemon>(result.url)
+          this.getPokemonByName(result.name)
         );
 
         return forkJoin(pokemonDetailsRequests);
+      })
+    );
+  }
+
+  getPokemonByName(name: string): Observable<Pokemon> {
+    const url = `${PokemonService.BASE_URL}/pokemon/${name}`;
+    // try to find the pokemon in the cache
+    const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);
+    if (existingPokemon) {
+      return of(existingPokemon);
+    }
+
+    return this.http.get<any>(url).pipe(
+      map((pokemon) => toPokemon(pokemon)),
+      tap((pokemon) => {
+        this.cache.push(pokemon);
       })
     );
   }

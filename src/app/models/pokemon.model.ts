@@ -1,4 +1,9 @@
 export interface Pokemon {
   name: string;
-  url: string;
+  sprites: {
+    back: string;
+    backShiny: string;
+    front: string;
+    frontShiny: string;
+  };
 }

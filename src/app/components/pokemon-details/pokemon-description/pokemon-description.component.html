@@ -1,0 +1,19 @@
+<div>
+    <p-card>
+        <ng-template pTemplate="header">
+            <img alt="Pokemon" [src]="monster().sprites.front" style="width: 100%;" />
+            <p-divider />
+        </ng-template>
+        <div class="pokemon-stat-row">
+            <div>Stat</div>
+            <div>Value</div>
+        </div>
+        @for (stat of stats(); track $index) {
+            <div class="pokemon-stat-row">
+                <div>{{ stat.name | firstLetterUpper}}</div>
+                <div>{{ stat.value }}</div>
+            </div>
+        }
+    </p-card>
+</div>
+

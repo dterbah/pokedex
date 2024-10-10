@@ -1,15 +1,16 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap } from 'rxjs';
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { LottieComponent } from 'ngx-lottie';
 import { PanelModule } from 'primeng/panel';
 import { PokemonService } from '../../services/pokemon.service';
+import { PokemonDescriptionComponent } from '../../components/pokemon-details/pokemon-description/pokemon-description.component';
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [LottieComponent, PanelModule],
+  imports: [LottieComponent, PanelModule, PokemonDescriptionComponent],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss',
 })

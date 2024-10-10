@@ -7,11 +7,12 @@ import { Pokemon } from '../../models/pokemon.model';
 import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
 import { PokemonTypeService } from '../../services/pokemon-type.service';
 import { Router } from '@angular/router';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [CardModule, FirstLetterUpperPipe, ButtonModule],
+  imports: [CardModule, FirstLetterUpperPipe, ButtonModule, DividerModule],
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss',
 })

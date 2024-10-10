@@ -1,1 +1,7 @@
-<p>Working :)</p>
+<div>
+    <div id="pokemon-description">
+        @if(monster()) {
+            <app-pokemon-description [monster]="monster()!"></app-pokemon-description>
+        }
+    </div>
+</div>

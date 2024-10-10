@@ -16,7 +16,6 @@ import { PokemonResult } from '../result/pokemon.result';
 import { toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
 import { BASE_URL, POKEMON_LIMIT } from './constants';
-import { PokemonTypeService } from './pokemon-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +23,6 @@ import { PokemonTypeService } from './pokemon-type.service';
 export class PokemonService {
   private http = inject(HttpClient);
   private isLoadingService = inject(LoadingService);
-  private typeService = inject(PokemonTypeService);
 
   private cache = Array<Pokemon>();
 

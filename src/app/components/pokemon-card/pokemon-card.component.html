@@ -1,11 +1,12 @@
 <p-card [header]="monster().name | firstLetterUpper">
     <ng-template pTemplate="header">
         <img alt="Card" [src]="monster().sprites.front" />
+        <p-divider />
     </ng-template>
 
     <div class="type-container">
         @for (typeSpriteUrl of typeSprites(); track typeSpriteUrl) {
-        <img [src]="typeSpriteUrl" />
+            <img [src]="typeSpriteUrl" />
         }
     </div>
     <p>

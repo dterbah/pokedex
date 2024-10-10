@@ -17,13 +17,13 @@ export class PokemonTypeService {
     this.loadingService.start();
     const requests = typeNames.map((typeName) => {
       const url = `${BASE_URL}/type/${typeName}`;
-      return this.http
-        .get<any>(url)
-        .pipe(
-          map(
-            (type) => type.sprites['generation-iii'].emerald.name_icon as string
-          )
-        );
+      return this.http.get<any>(url).pipe(
+        tap((r) => console.log(r)),
+        map(
+          (type) =>
+            type.sprites['generation-viii']['sword-shield'].name_icon as string
+        )
+      );
     });
 
     this.loadingService.end();

@@ -1,9 +1,9 @@
-<p-card [header]="monster().name | firstLetterUpper" subheader="Card Subheader">
+<p-card [header]="monster().name | firstLetterUpper">
     <ng-template pTemplate="header">
         <img alt="Card" [src]="monster().sprites.front" />
     </ng-template>
 
-    <div>
+    <div class="type-container">
         @for (typeSpriteUrl of typeSprites(); track typeSpriteUrl) {
         <img [src]="typeSpriteUrl" />
         }

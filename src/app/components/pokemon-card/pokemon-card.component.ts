@@ -12,8 +12,8 @@ import { CardModule } from 'primeng/card';
 import { Pokemon } from '../../models/pokemon.model';
 import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
 import { PokemonTypeService } from '../../services/pokemon-type.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { of, Subscription } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { of, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -29,26 +29,13 @@ export class PokemonCardComponent implements OnDestroy {
 
   monster = input.required<Pokemon>();
 
-  typeSprites = signal<string[]>([]);
-  typeSprites$ = computed(() => {
-    const currentMonster = this.monster();
-    if (!currentMonster) return of<string[]>([]);
-
-    // Si getTypeSprites retourne un Observable
-    const typesObservable = this.pokemonTypeService.getTypeSprites(
-      currentMonster.types
-    );
-
-    return typesObservable;
-  });
-
-  constructor() {
-    effect(() => {
-      this.typeSubscription = this.typeSprites$().subscribe((value) =>
-        this.typeSprites.set(value)
-      );
-    });
-  }
+  typeSprites = toSignal(
+    toObservable(this.monster).pipe(
+      switchMap((pokemon) =>
+        this.pokemonTypeService.getTypeSprites(pokemon.types)
+      )
+    )
+  );
 
   ngOnDestroy(): void {
     this.typeSubscription?.unsubscribe();

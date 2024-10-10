@@ -2,6 +2,7 @@
     <ng-template pTemplate="header">
         <img alt="Card" [src]="monster().sprites.front" />
     </ng-template>
+
     <div>
         @for (typeSpriteUrl of typeSprites(); track typeSpriteUrl) {
         <img [src]="typeSpriteUrl" />

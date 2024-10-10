@@ -1,0 +1,13 @@
+<p-card [header]="monster().name | firstLetterUpper" subheader="Card Subheader">
+    <ng-template pTemplate="header">
+        <img alt="Card" [src]="monster().sprites.front" />
+    </ng-template>
+    <div>
+        @for (typeSpriteUrl of typeSprites(); track typeSpriteUrl) {
+        <img [src]="typeSpriteUrl" />
+        }
+    </div>
+    <p>
+        {{ monster().description }}
+    </p>
+</p-card>

@@ -1,5 +1,3 @@
-import { Pokemon } from '../models/pokemon.model';
-
 export interface PokemonResult {
   count: number;
   next: string;

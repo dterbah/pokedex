@@ -1,15 +1,14 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { CardModule } from 'primeng/card';
 import { switchMap } from 'rxjs';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
-import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
+import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardModule, FirstLetterUpperPipe],
+  imports: [PokemonCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -24,12 +23,6 @@ export class HomeComponent {
     ),
     { initialValue: [] as Pokemon[] }
   );
-
-  constructor() {
-    effect(() => {
-      console.log(this.monsters());
-    });
-  }
 
   changeOffset(value: number) {
     this.offset.update((current) => current + value);

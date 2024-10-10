@@ -1,12 +1,7 @@
 <div class="pokemon-container">
     @for (monster of monsters(); track monster.name) {
-    <p-card [header]="monster.name | firstLetterUpper" subheader="Card Subheader">
-        <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-        </ng-template>
-        <p>
-            Lorem ipsum dolor sit amet...
-        </p>
-    </p-card>
+        @if(monster) {
+            <app-pokemon-card [monster]="monster"></app-pokemon-card>
+        }
     }
 </div>

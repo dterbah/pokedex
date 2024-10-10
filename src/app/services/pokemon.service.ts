@@ -2,10 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { Pokemon } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, mergeMap, Observable, of, tap } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
 import { toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
+import { BASE_URL } from './constants';
+import { PokemonTypeService } from './pokemon-type.service';
 
 const POKEMON_LIMIT = 9;
 
@@ -13,9 +15,9 @@ const POKEMON_LIMIT = 9;
   providedIn: 'root',
 })
 export class PokemonService {
-  private static BASE_URL = 'https://pokeapi.co/api/v2/';
   private http = inject(HttpClient);
   private isLoadingService = inject(LoadingService);
+  private typeService = inject(PokemonTypeService);
 
   private cache = Array<Pokemon>();
 
@@ -24,7 +26,7 @@ export class PokemonService {
   constructor() {}
 
   getPokemons(offset: number = 0): Observable<Pokemon[]> {
-    const url = `${PokemonService.BASE_URL}/pokemon?limit=${POKEMON_LIMIT}&offset=${offset}`;
+    const url = `${BASE_URL}/pokemon?limit=${POKEMON_LIMIT}&offset=${offset}`;
     this.isLoadingService.start();
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
@@ -44,20 +46,44 @@ export class PokemonService {
 
   getPokemonByName(name: string): Observable<Pokemon> {
     this.isLoadingService.start();
-    const url = `${PokemonService.BASE_URL}/pokemon/${name}`;
+    const url = `${BASE_URL}/pokemon/${name}`;
     // try to find the pokemon in the cache
     const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);
     if (existingPokemon) {
+      this.isLoadingService.end();
       return of(existingPokemon);
     }
 
     return this.http.get<any>(url).pipe(
-      map((pokemon) => toPokemon(pokemon)),
+      switchMap((pokemon) =>
+        // add the description in the data
+        this.getPokemonSpeciesDescription(pokemon.name).pipe(
+          map((description) => {
+            const pokemonWithDescription = { ...pokemon, description };
+            return toPokemon(pokemonWithDescription);
+          })
+        )
+      ),
       tap((pokemon) => {
         this.cache.push(pokemon);
       }),
       tap(() => {
         this.isLoadingService.end();
+      })
+    );
+  }
+
+  private getPokemonSpeciesDescription(name: string): Observable<string> {
+    const url = `${BASE_URL}/pokemon-species/${name}`;
+
+    return this.http.get<any>(url).pipe(
+      map((species) => {
+        const flavorTextEntry = species.flavor_text_entries.find(
+          (entry: any) => entry.language.name === 'en'
+        );
+        return flavorTextEntry
+          ? flavorTextEntry.flavor_text
+          : 'Description not available';
       })
     );
   }

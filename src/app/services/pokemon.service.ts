@@ -6,10 +6,8 @@ import { forkJoin, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
 import { toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
-import { BASE_URL } from './constants';
+import { BASE_URL, POKEMON_LIMIT } from './constants';
 import { PokemonTypeService } from './pokemon-type.service';
-
-const POKEMON_LIMIT = 9;
 
 @Injectable({
   providedIn: 'root',
@@ -45,15 +43,14 @@ export class PokemonService {
   }
 
   getPokemonByName(name: string): Observable<Pokemon> {
-    this.isLoadingService.start();
     const url = `${BASE_URL}/pokemon/${name}`;
     // try to find the pokemon in the cache
     const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);
     if (existingPokemon) {
-      this.isLoadingService.end();
       return of(existingPokemon);
     }
 
+    this.isLoadingService.start();
     return this.http.get<any>(url).pipe(
       switchMap((pokemon) =>
         // add the description in the data

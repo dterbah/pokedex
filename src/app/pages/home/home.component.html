@@ -1,3 +1,7 @@
+<div class="pokemon-header">
+        <p-button label="Previous pokemons" icon="pi pi-caret-left" [disabled]="offset() === 0" (onClick)="loadPreviousPokemons()"/>
+        <p-button label="Next pokemons" icon="pi pi-caret-right" [disabled]="offset() >= pokemonCount()" (onClick)="loadNextPokemons()" />
+</div>
 <div class="pokemon-container">
     @for (monster of monsters(); track monster.name) {
         @if(monster) {

@@ -11,24 +11,38 @@ export class PokemonTypeService {
   private http = inject(HttpClient);
   private loadingService = inject(LoadingService);
 
+  private cache: Map<string, string> = new Map();
+
   constructor() {}
 
   getTypeSprites(typeNames: string[]): Observable<string[]> {
-    this.loadingService.start();
     const requests = typeNames.map((typeName) => {
       const url = `${BASE_URL}/type/${typeName}`;
-      return this.http
-        .get<any>(url)
-        .pipe(
-          map(
-            (type) =>
-              type.sprites['generation-viii']['sword-shield']
-                .name_icon as string
-          )
-        );
+      const existingType = this.cache.get(typeName);
+      if (existingType) {
+        console.log('existing type');
+        return of(existingType);
+      }
+
+      return this.http.get<any>(url).pipe(
+        map(
+          (type) =>
+            type.sprites['generation-viii']['sword-shield'].name_icon as string
+        ),
+        tap((typeUrl) => {
+          this.cache.set(typeName, typeUrl);
+        }),
+        catchError((error) => {
+          console.error(`Error fetching type: ${typeName}`, error);
+          return of('');
+        })
+      );
     });
 
-    this.loadingService.end();
-    return forkJoin(requests);
+    return forkJoin(requests).pipe(
+      tap(() => {
+        this.loadingService.end();
+      })
+    );
   }
 }

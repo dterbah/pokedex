@@ -1,0 +1,11 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="item" let-item let-root="root">
+        <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink" routerLinkActive="active-link">
+            <span [class]="item.icon" style="margin-right: 10px"></span>
+            <span class="ml-2">{{ item.label }}</span>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <app-home-search  [(search)]="search" (searchPokemon)="search() && searchPokemon()"></app-home-search>
+    </ng-template>
+</p-menubar>

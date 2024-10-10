@@ -12,24 +12,19 @@ import { ButtonModule } from 'primeng/button';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card.component';
-import { HomeSearchComponent } from '../../components/home-search/home-search.component';
 import { POKEMON_LIMIT } from '../../services/constants';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [PokemonCardComponent, ButtonModule, HomeSearchComponent],
+  imports: [PokemonCardComponent, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   private pokemonService = inject(PokemonService);
-  private router = inject(Router);
-
   offset = signal(0);
   private offset$ = toObservable(this.offset);
-  search = model('');
 
   pokemonCount = this.pokemonService.pokemonCount;
 
@@ -46,10 +41,5 @@ export class HomeComponent {
 
   loadPreviousPokemons() {
     this.offset.update((current) => current - POKEMON_LIMIT);
-  }
-
-  searchPokemon() {
-    // redirect user to pokemon details
-    this.router.navigate(['details', this.search().toLowerCase()]);
   }
 }

@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    margin-top: 3%;
 }
 
 .router-container {
@@ -12,4 +13,19 @@
     justify-content: center;
     width: 80%;
     height: 100%;
+}
+
+#app-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-bar-container #app-bar {
+    width: 80%
 }

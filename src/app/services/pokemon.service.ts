@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
 import { toPokemon } from '../utils/pokemon.util';
+import { LoadingService } from './loading.service';
 
 const POKEMON_LIMIT = 9;
 
@@ -14,6 +15,7 @@ const POKEMON_LIMIT = 9;
 export class PokemonService {
   private static BASE_URL = 'https://pokeapi.co/api/v2/';
   private http = inject(HttpClient);
+  private isLoadingService = inject(LoadingService);
 
   private cache = Array<Pokemon>();
 
@@ -23,6 +25,7 @@ export class PokemonService {
 
   getPokemons(offset: number = 0): Observable<Pokemon[]> {
     const url = `${PokemonService.BASE_URL}/pokemon?limit=${POKEMON_LIMIT}&offset=${offset}`;
+    this.isLoadingService.start();
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
         this.pokemonCount.set(result.count);
@@ -34,11 +37,13 @@ export class PokemonService {
         );
 
         return forkJoin(pokemonDetailsRequests);
-      })
+      }),
+      tap(() => this.isLoadingService.end())
     );
   }
 
   getPokemonByName(name: string): Observable<Pokemon> {
+    this.isLoadingService.start();
     const url = `${PokemonService.BASE_URL}/pokemon/${name}`;
     // try to find the pokemon in the cache
     const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);
@@ -50,6 +55,9 @@ export class PokemonService {
       map((pokemon) => toPokemon(pokemon)),
       tap((pokemon) => {
         this.cache.push(pokemon);
+      }),
+      tap(() => {
+        this.isLoadingService.end();
       })
     );
   }

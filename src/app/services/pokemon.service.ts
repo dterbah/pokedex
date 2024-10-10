@@ -2,7 +2,16 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { Pokemon } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
 import { toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
@@ -32,8 +41,8 @@ export class PokemonService {
         return result.results;
       }),
       mergeMap((results) => {
-        const pokemonDetailsRequests = results.map((result) =>
-          this.getPokemonByName(result.name)
+        const pokemonDetailsRequests = results.map(
+          (result) => this.getPokemonByName(result.name) as Observable<Pokemon>
         );
 
         return forkJoin(pokemonDetailsRequests);
@@ -42,7 +51,7 @@ export class PokemonService {
     );
   }
 
-  getPokemonByName(name: string): Observable<Pokemon> {
+  getPokemonByName(name: string): Observable<Pokemon | undefined> {
     const url = `${BASE_URL}/pokemon/${name}`;
     // try to find the pokemon in the cache
     const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);
@@ -66,6 +75,11 @@ export class PokemonService {
       }),
       tap(() => {
         this.isLoadingService.end();
+      }),
+      catchError((error) => {
+        console.log(error);
+        this.isLoadingService.end();
+        return of(undefined);
       })
     );
   }

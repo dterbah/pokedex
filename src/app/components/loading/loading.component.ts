@@ -1,7 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({

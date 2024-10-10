@@ -1,23 +1,36 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, tap } from 'rxjs';
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { PanelModule } from 'primeng/panel';
 import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [],
+  imports: [LottieComponent, PanelModule],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss',
 })
 export class PokemonDetailsComponent {
   private route = inject(ActivatedRoute);
   private pokemonService = inject(PokemonService);
+  private router = inject(Router);
 
   pokemonName = toSignal(
     this.route.params.pipe(map((params) => params['name']))
   );
 
-  monster = toSignal(this.pokemonService.getPokemonByName(this.pokemonName()));
+  monster = toSignal(
+    this.pokemonService.getPokemonByName(this.pokemonName()).pipe(
+      tap((pokemon) => {
+        if (!pokemon) {
+          this.router.navigate(['not-found']);
+        }
+      })
+    )
+  );
+
+  constructor() {}
 }

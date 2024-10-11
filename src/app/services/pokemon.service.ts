@@ -59,6 +59,7 @@ export class PokemonService {
 
     this.isLoadingService.start();
     return this.http.get<any>(url).pipe(
+      tap((pokemon) => console.log(pokemon)),
       switchMap((pokemon) =>
         // add the description in the data
         this.getPokemonSpeciesDescription(pokemon.name).pipe(
@@ -86,6 +87,7 @@ export class PokemonService {
     const url = `${BASE_URL}/pokemon-species/${name}`;
 
     return this.http.get<any>(url).pipe(
+      tap((species) => console.log('species', species)),
       map((species) => {
         const flavorTextEntry = species.flavor_text_entries.find(
           (entry: any) => entry.language.name === 'en'

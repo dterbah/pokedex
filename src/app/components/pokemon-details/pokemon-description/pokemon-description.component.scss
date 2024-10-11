@@ -3,3 +3,13 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.type-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.type-container img {
+    width: 20%;
+}

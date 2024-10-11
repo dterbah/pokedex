@@ -1,0 +1,19 @@
+<p-accordion [activeIndex]="0">
+    <p-accordionTab header="About">
+        <p>
+            {{ monster().description }}
+        </p>
+    </p-accordionTab>
+    <p-accordionTab header="Forms of {{ monster().name }}">
+        <div class="pokemon-about-images">
+            @for (image of images(); track $index) {
+                <img [src]="image" />
+            }
+        </div>
+    </p-accordionTab>
+    <p-accordionTab header="Header III">
+        <p>
+            At vero eos et accusamus et iusto odio dignissimos...
+        </p>
+    </p-accordionTab>
+</p-accordion>

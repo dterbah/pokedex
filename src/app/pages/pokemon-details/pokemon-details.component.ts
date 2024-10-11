@@ -7,6 +7,7 @@ import { PanelModule } from 'primeng/panel';
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonDescriptionComponent } from '../../components/pokemon-details/pokemon-description/pokemon-description.component';
 import { PokemonStatChartComponent } from '../../components/pokemon-details/pokemon-stat-chart/pokemon-stat-chart.component';
+import { PokemonAboutComponent } from '../../components/pokemon-details/pokemon-about/pokemon-about.component';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -16,6 +17,7 @@ import { PokemonStatChartComponent } from '../../components/pokemon-details/poke
     PanelModule,
     PokemonDescriptionComponent,
     PokemonStatChartComponent,
+    PokemonAboutComponent,
   ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss',

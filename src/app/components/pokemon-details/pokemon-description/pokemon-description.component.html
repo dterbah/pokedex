@@ -2,6 +2,13 @@
     <p-card>
         <ng-template pTemplate="header">
             <img alt="Pokemon" class="center-image" [src]="monster().sprites.front" style="width: 60%;" />
+            <div class="type-container">
+                @for (typeSpriteUrl of typeSprites(); track typeSpriteUrl) {
+                    <img [src]="typeSpriteUrl" />
+                }
+
+                <audio controls [src]="monster().cryUrl"></audio>
+            </div>
             <p-divider />
         </ng-template>
 

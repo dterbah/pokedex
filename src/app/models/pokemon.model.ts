@@ -15,6 +15,7 @@ export interface Pokemon {
   description: string;
   types: string[];
   stats: PokemonStats;
+  abilities: { hidden: boolean; name: string }[];
   sprites: {
     back: string;
     backShiny: string;

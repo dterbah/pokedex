@@ -1,4 +1,5 @@
 import { Pokemon } from '../models/pokemon.model';
+import { firstLetterUpper } from './format.utils';
 
 export const toPokemon = (data: any): Pokemon => {
   const {
@@ -10,13 +11,20 @@ export const toPokemon = (data: any): Pokemon => {
     description,
     types,
     stats,
+    abilities,
   } = data;
 
   return {
-    name,
+    name: firstLetterUpper(name),
     id,
     cryUrl: cries.latest,
     description,
+    abilities: abilities.map((ability: any) => {
+      return {
+        hidden: ability.is_hidden,
+        name: ability.ability.name,
+      };
+    }),
     stats: {
       hp: stats[0].base_stat,
       attack: stats[1].base_stat,

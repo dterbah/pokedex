@@ -1,10 +1,15 @@
 <div class="pokemon-details-container">
     @if(monster()) {
-        <div>
-            <app-pokemon-description [monster]="monster()!"></app-pokemon-description>
+        <div id="pokemon-about">
+            <app-pokemon-about [monster]="monster()!"></app-pokemon-about>
         </div>
-        <div>
-            <app-pokemon-stat-chart [stats]="monster()!.stats" [monsterName]="monster()!.name"></app-pokemon-stat-chart>
+        <div id="pokemon-description">
+            <div>
+                <app-pokemon-description [monster]="monster()!"></app-pokemon-description>
+            </div>
+            <div>
+                <app-pokemon-stat-chart [stats]="monster()!.stats" [monsterName]="monster()!.name"></app-pokemon-stat-chart>
+            </div>
         </div>
     }
 </div>

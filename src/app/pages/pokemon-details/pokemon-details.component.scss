@@ -2,7 +2,7 @@
     width: 80%;
 }
 
-.pokemon-details-container {
+#pokemon-description {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -11,6 +11,6 @@
     display: flex;
 }
 
-.pokemon-details-container > div {
+#pokemon-description > div {
     width: 50%;
 }

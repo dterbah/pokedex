@@ -15,7 +15,7 @@ export const toPokemon = (data: any): Pokemon => {
   } = data;
 
   return {
-    name: firstLetterUpper(name),
+    name,
     id,
     cryUrl: cries.latest,
     description,

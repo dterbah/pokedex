@@ -4,7 +4,7 @@
             {{ monster().description }}
         </p>
     </p-accordionTab>
-    <p-accordionTab header="Forms of {{ monster().name }}">
+    <p-accordionTab header="Forms of {{ monster().name | firstLetterUpper }}">
         <div class="pokemon-about-images">
             @for (image of images(); track $index) {
                 <img [src]="image" />

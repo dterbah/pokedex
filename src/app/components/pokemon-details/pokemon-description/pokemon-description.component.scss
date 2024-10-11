@@ -1,8 +1,5 @@
-.pokemon-stat-row {
-    display: flex;
-    width: 100%;
-}
-
-.pokemon-stat-row > div {
-    width: calc(100% / 2);
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

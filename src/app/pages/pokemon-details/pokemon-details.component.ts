@@ -6,11 +6,17 @@ import { LottieComponent } from 'ngx-lottie';
 import { PanelModule } from 'primeng/panel';
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonDescriptionComponent } from '../../components/pokemon-details/pokemon-description/pokemon-description.component';
+import { PokemonStatChartComponent } from '../../components/pokemon-details/pokemon-stat-chart/pokemon-stat-chart.component';
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [LottieComponent, PanelModule, PokemonDescriptionComponent],
+  imports: [
+    LottieComponent,
+    PanelModule,
+    PokemonDescriptionComponent,
+    PokemonStatChartComponent,
+  ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss',
 })

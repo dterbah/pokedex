@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { firstLetterUpper } from '../utils/format.utils';
 
 @Pipe({
   name: 'firstLetterUpper',
@@ -6,6 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FirstLetterUpperPipe implements PipeTransform {
   transform(value: string): string {
-    return value.substring(0, 1).toLocaleUpperCase() + value.substring(1);
+    return firstLetterUpper(value);
   }
 }

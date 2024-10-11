@@ -1,7 +1,10 @@
-<div>
-    <div id="pokemon-description">
-        @if(monster()) {
+<div class="pokemon-details-container">
+    @if(monster()) {
+        <div>
             <app-pokemon-description [monster]="monster()!"></app-pokemon-description>
-        }
-    </div>
+        </div>
+        <div>
+            <app-pokemon-stat-chart [stats]="monster()!.stats" [monsterName]="monster()!.name"></app-pokemon-stat-chart>
+        </div>
+    }
 </div>

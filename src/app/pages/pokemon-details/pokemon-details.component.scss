@@ -1,8 +1,16 @@
 :host {
-    display: flex;
     width: 80%;
 }
 
-:host > div:first-child {
-    width: 40%;
+.pokemon-details-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+}
+
+.pokemon-details-container > div {
+    width: 50%;
 }

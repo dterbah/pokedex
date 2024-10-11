@@ -4,6 +4,7 @@ import { Pokemon, PokemonGenderRatio } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
 import {
   catchError,
+  finalize,
   forkJoin,
   map,
   mergeMap,
@@ -22,7 +23,7 @@ import { BASE_URL, POKEMON_LIMIT } from './constants';
 })
 export class PokemonService {
   private http = inject(HttpClient);
-  private isLoadingService = inject(LoadingService);
+  private loadingService = inject(LoadingService);
 
   private cache = Array<Pokemon>();
 
@@ -32,7 +33,7 @@ export class PokemonService {
 
   getPokemons(offset: number = 0): Observable<Pokemon[]> {
     const url = `${BASE_URL}/pokemon?limit=${POKEMON_LIMIT}&offset=${offset}`;
-    this.isLoadingService.start();
+    this.loadingService.start();
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
         this.pokemonCount.set(result.count);
@@ -45,7 +46,7 @@ export class PokemonService {
 
         return forkJoin(pokemonDetailsRequests);
       }),
-      tap(() => this.isLoadingService.end())
+      finalize(() => this.loadingService.stop())
     );
   }
 
@@ -57,7 +58,7 @@ export class PokemonService {
       return of(existingPokemon);
     }
 
-    this.isLoadingService.start();
+    this.loadingService.start();
     return this.http.get<any>(url).pipe(
       switchMap((pokemon) =>
         // add the description in the data
@@ -71,14 +72,11 @@ export class PokemonService {
       tap((pokemon) => {
         this.cache.push(pokemon);
       }),
-      tap(() => {
-        this.isLoadingService.end();
-      }),
       catchError((error) => {
         console.log(error);
-        this.isLoadingService.end();
         return of(undefined);
-      })
+      }),
+      finalize(() => this.loadingService.stop())
     );
   }
 

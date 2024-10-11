@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, forkJoin, map, Observable, of, tap } from 'rxjs';
+import { catchError, finalize, forkJoin, map, Observable, of, tap } from 'rxjs';
 import { BASE_URL } from './constants';
 import { LoadingService } from './loading.service';
 
@@ -40,8 +40,8 @@ export class PokemonTypeService {
     });
 
     return forkJoin(requests).pipe(
-      tap(() => {
-        this.loadingService.end();
+      finalize(() => {
+        this.loadingService.stop();
       })
     );
   }

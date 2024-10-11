@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BASE_URL } from './constants';
-import { forkJoin, map, Observable, tap } from 'rxjs';
+import { finalize, forkJoin, map, Observable } from 'rxjs';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -35,8 +35,8 @@ export class PokemonAbilityService {
     });
 
     return forkJoin(requests).pipe(
-      tap(() => {
-        this.loadingService.end();
+      finalize(() => {
+        this.loadingService.stop();
       })
     );
   }

@@ -23,6 +23,11 @@ export class AppBarComponent {
       icon: 'pi pi-fw pi-home',
       routerLink: '/home',
     },
+    {
+      label: 'Shop',
+      icon: 'pi pi-shopping-cart',
+      routerLink: '/shop',
+    },
   ];
 
   searchPokemon() {

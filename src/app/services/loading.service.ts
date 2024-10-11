@@ -16,7 +16,7 @@ export class LoadingService {
     this.isLoading.set(true);
   }
 
-  end() {
+  stop() {
     this.isLoading.set(false);
   }
 }

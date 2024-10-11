@@ -1,5 +1,4 @@
 import { Pokemon } from '../models/pokemon.model';
-import { firstLetterUpper } from './format.utils';
 
 export const toPokemon = (data: any): Pokemon => {
   const {
@@ -12,6 +11,8 @@ export const toPokemon = (data: any): Pokemon => {
     types,
     stats,
     abilities,
+    height,
+    weight,
   } = data;
 
   return {
@@ -25,6 +26,11 @@ export const toPokemon = (data: any): Pokemon => {
         name: ability.ability.name,
       };
     }),
+    details: {
+      baseExperience: base_experience,
+      height: height * 10,
+      weight,
+    },
     stats: {
       hp: stats[0].base_stat,
       attack: stats[1].base_stat,
@@ -34,7 +40,6 @@ export const toPokemon = (data: any): Pokemon => {
       speed: stats[5].base_stat,
     },
     types: types.map((type: any) => type.type.name),
-    baseExperience: base_experience,
     sprites: {
       back: sprites.back_default,
       front: sprites.front_default,

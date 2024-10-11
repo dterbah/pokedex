@@ -7,14 +7,20 @@ export interface PokemonStats {
   speed: number;
 }
 
+export interface PokemonDetails {
+  baseExperience: number;
+  height: number; // cm
+  weight: number;
+}
+
 export interface Pokemon {
   name: string;
   id: number;
-  baseExperience: number;
   cryUrl: string;
   description: string;
   types: string[];
   stats: PokemonStats;
+  details: PokemonDetails;
   abilities: { hidden: boolean; name: string }[];
   sprites: {
     back: string;

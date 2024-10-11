@@ -10,6 +10,11 @@
                 <audio controls [src]="monster().cryUrl"></audio>
             </div>
             <p-divider />
+            <div class="type-container">
+                <p>Height : {{ monster().details.height | toMeter}}, or {{ monster().details.height | toFoot }}</p>
+                <p>Weight : {{ monster().details.weight / 10 }}kg</p>
+                <p>Base experience : {{ monster().details.baseExperience }} exp</p>
+            </div>
         </ng-template>
 
         <p-table [value]="stats()">

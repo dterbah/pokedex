@@ -2,16 +2,25 @@ import { Component, computed, inject, input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
+import { switchMap } from 'rxjs';
+import { ToMeterPipe } from '../../../pipes/to-meter.pipe';
+import { ToFootPipe } from '../../../pipes/to-foot.pipe';
 import { FirstLetterUpperPipe } from '../../../pipes/first-letter-upper.pipe';
 import { Pokemon, PokemonStats } from '../../../models/pokemon.model';
 import { PokemonTypeService } from '../../../services/pokemon-type.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-description',
   standalone: true,
-  imports: [CardModule, DividerModule, FirstLetterUpperPipe, TableModule],
+  imports: [
+    CardModule,
+    DividerModule,
+    TableModule,
+    FirstLetterUpperPipe,
+    ToMeterPipe,
+    ToFootPipe,
+  ],
   templateUrl: './pokemon-description.component.html',
   styleUrls: ['./pokemon-description.component.scss'],
 })

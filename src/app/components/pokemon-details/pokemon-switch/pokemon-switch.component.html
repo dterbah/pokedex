@@ -1,0 +1,4 @@
+<div>
+    <p-button label="Previous" icon="pi pi-angle-left" [disabled]="monsterId() === 1" (onClick)="changePokemonDetails(-1)"/>
+    <p-button label="Next" icon="pi pi-angle-right" iconPos="right" [disabled]="monsterId() === pokemonLimit()" (onClick)="changePokemonDetails(+1)"/>
+</div>

@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 
-import { Pokemon } from '../models/pokemon.model';
+import { Pokemon, PokemonGenderRatio } from '../models/pokemon.model';
 import { HttpClient } from '@angular/common/http';
 import {
   catchError,
@@ -13,7 +13,7 @@ import {
   tap,
 } from 'rxjs';
 import { PokemonResult } from '../result/pokemon.result';
-import { toPokemon } from '../utils/pokemon.util';
+import { getGenderRatio, toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
 import { BASE_URL, POKEMON_LIMIT } from './constants';
 
@@ -62,9 +62,9 @@ export class PokemonService {
       tap((pokemon) => console.log(pokemon)),
       switchMap((pokemon) =>
         // add the description in the data
-        this.getPokemonSpeciesDescription(pokemon.name).pipe(
-          map((description) => {
-            const pokemonWithDescription = { ...pokemon, description };
+        this.getPokemonSpeciesData(pokemon.name).pipe(
+          map((data) => {
+            const pokemonWithDescription = { ...pokemon, ...data };
             return toPokemon(pokemonWithDescription);
           })
         )
@@ -83,18 +83,24 @@ export class PokemonService {
     );
   }
 
-  private getPokemonSpeciesDescription(name: string): Observable<string> {
+  private getPokemonSpeciesData(
+    name: string
+  ): Observable<{ description: string; gender: PokemonGenderRatio }> {
     const url = `${BASE_URL}/pokemon-species/${name}`;
 
     return this.http.get<any>(url).pipe(
       tap((species) => console.log('species', species)),
       map((species) => {
+        console.log('species', species);
         const flavorTextEntry = species.flavor_text_entries.find(
           (entry: any) => entry.language.name === 'en'
         );
-        return flavorTextEntry
-          ? flavorTextEntry.flavor_text
-          : 'Description not available';
+
+        return {
+          description:
+            flavorTextEntry?.flavor_text ?? 'Description not available',
+          gender: getGenderRatio(species.gender_rate ?? 0),
+        };
       })
     );
   }

@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { TableModule } from 'primeng/table';
 import { switchMap } from 'rxjs';
 import { ToMeterPipe } from '../../../pipes/to-meter.pipe';
@@ -17,6 +18,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
     CardModule,
     DividerModule,
     TableModule,
+    MeterGroupModule,
     FirstLetterUpperPipe,
     ToMeterPipe,
     ToFootPipe,
@@ -45,5 +47,21 @@ export class PokemonDescriptionComponent {
         img: `/assets/img/${statName}.png`,
       };
     });
+  });
+
+  genders = computed(() => {
+    const gender = this.monster().gender;
+    return [
+      {
+        label: 'Male',
+        color: 'blue',
+        value: Math.floor(gender.male),
+      },
+      {
+        label: 'Female',
+        color: 'pink',
+        value: Math.ceil(gender.female),
+      },
+    ];
   });
 }

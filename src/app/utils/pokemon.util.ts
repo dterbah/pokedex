@@ -1,4 +1,4 @@
-import { Pokemon } from '../models/pokemon.model';
+import { Pokemon, PokemonGenderRatio } from '../models/pokemon.model';
 
 export const toPokemon = (data: any): Pokemon => {
   const {
@@ -13,6 +13,7 @@ export const toPokemon = (data: any): Pokemon => {
     abilities,
     height,
     weight,
+    gender,
   } = data;
 
   return {
@@ -46,5 +47,13 @@ export const toPokemon = (data: any): Pokemon => {
       backShiny: sprites.back_shiny,
       frontShiny: sprites.front_shiny,
     },
+    gender,
+  };
+};
+
+export const getGenderRatio = (genderRate: number): PokemonGenderRatio => {
+  return {
+    male: ((8 - genderRate) / 8) * 100,
+    female: (genderRate / 8) * 100,
   };
 };

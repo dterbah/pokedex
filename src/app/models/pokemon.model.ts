@@ -13,6 +13,11 @@ export interface PokemonDetails {
   weight: number;
 }
 
+export interface PokemonGenderRatio {
+  male: number;
+  female: number;
+}
+
 export interface Pokemon {
   name: string;
   id: number;
@@ -21,6 +26,7 @@ export interface Pokemon {
   types: string[];
   stats: PokemonStats;
   details: PokemonDetails;
+  gender: PokemonGenderRatio;
   abilities: { hidden: boolean; name: string }[];
   sprites: {
     back: string;

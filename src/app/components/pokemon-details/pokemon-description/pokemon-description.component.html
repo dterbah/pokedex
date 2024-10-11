@@ -15,6 +15,10 @@
                 <p>Weight : {{ monster().details.weight / 10 }}kg</p>
                 <p>Base experience : {{ monster().details.baseExperience }} exp</p>
             </div>
+            <div class="type-container">
+                <p-meterGroup [value]="genders()" />
+            </div>
+
         </ng-template>
 
         <p-table [value]="stats()">
@@ -36,7 +40,6 @@
                 </tr>
             </ng-template>
         </p-table>
-       
     </p-card>
 </div>
 

@@ -16,6 +16,7 @@ export class PokemonTypeService {
   constructor() {}
 
   getTypeSprites(typeNames: string[]): Observable<string[]> {
+    this.loadingService.start();
     const requests = typeNames.map((typeName) => {
       const url = `${BASE_URL}/type/${typeName}`;
       const existingType = this.cache.get(typeName);

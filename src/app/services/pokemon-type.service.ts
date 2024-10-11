@@ -21,7 +21,6 @@ export class PokemonTypeService {
       const url = `${BASE_URL}/type/${typeName}`;
       const existingType = this.cache.get(typeName);
       if (existingType) {
-        console.log('existing type');
         return of(existingType);
       }
 

@@ -21,10 +21,6 @@ export class NotFoundComponent {
     autoplay: true,
   };
 
-  animationCreated(animationItem: AnimationItem): void {
-    console.log('animated item', animationItem);
-  }
-
   goToHome() {
     this.router.navigate(['home']);
   }

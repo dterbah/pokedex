@@ -44,10 +44,4 @@ export class PokemonAboutComponent {
       })
     )
   );
-
-  constructor() {
-    effect(() => {
-      console.log('abilities', this.abilities());
-    });
-  }
 }

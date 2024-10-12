@@ -6,17 +6,19 @@ import { switchMap } from 'rxjs/operators';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-pokemon-quizz',
   standalone: true,
-  imports: [InputTextModule, FormsModule, ButtonModule, MessagesModule],
+  imports: [InputTextModule, FormsModule, ButtonModule, TooltipModule],
   templateUrl: './pokemon-quizz.component.html',
   styleUrl: './pokemon-quizz.component.scss',
 })
 export class PokemonQuizzComponent {
   private pokemonService = inject(PokemonService);
+
+  goodAnswers = 0;
 
   pokemonIndex = signal(getRandomNumber(0, this.pokemonService.pokemonCount()));
 
@@ -50,6 +52,7 @@ export class PokemonQuizzComponent {
       this.pokemonIndex.set(
         getRandomNumber(0, this.pokemonService.pokemonCount())
       );
+      this.goodAnswers++;
     } else {
       this.error.set(true);
     }

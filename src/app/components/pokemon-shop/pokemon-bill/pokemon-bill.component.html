@@ -1,0 +1,19 @@
+<div id="items-cart">
+    @for (item of cartEntries(); track $index) {
+        <div class="cart-item-container">
+            <p>{{item[0] | firstLetterUpper | replaceDashWithSpace}}</p>
+            <p>x{{ item[1].count }}</p>
+            <p>{{ item[1].cost }}$</p>
+        </div>
+        
+    }
+
+    @if (total() > 0) {
+        <div style="display: flex; justify-content: space-between;">
+            <p>TOTAL : </p>
+            <p>{{ total() }}$</p>
+        </div>
+
+        <p style="text-align: center;">Thanks for your visit !</p>
+    }
+</div>

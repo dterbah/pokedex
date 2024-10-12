@@ -1,24 +1,37 @@
 <div id="item-container">
     <p-paginator (onPageChange)="onPageChange($event)" [first]="first()" [rows]="rows()" [totalRecords]="totalRecords()"
         [rowsPerPageOptions]="[10, 20, 30]" />
-    @for (item of displayedItems(); track $index) {
-        <div class="item-row">
-            <img [src]="item.imgUrl" width="10%" />
-            <div class="item-description-row">
-                <p>{{ item.category | firstLetterUpper | replaceDashWithSpace }}</p>
-                <p style="font-weight: 800;">{{ item.name | firstLetterUpper | replaceDashWithSpace }}</p>
-                <div>
-                    <i class="pi pi-cart-minus" style="padding-right: 8px;"></i>
-                    <span class="">{{ objectsQuantities[item.name] || 0 }}</span>
+    <div class="item-search">
+        <input type="text" pInputText [(ngModel)]="search" placeholder="Filter items..." style="width: 40%;" (input)="onSearchChange()" />
+    </div>
+
+    <div id="shop-container">
+        <div>
+            @for (item of displayedItems(); track $index) {
+            <div class="item-row">
+                <img [src]="item.imgUrl" width="10%" />
+                <div class="item-description-row">
+                    <p>{{ item.category | firstLetterUpper | replaceDashWithSpace }}</p>
+                    <p style="font-weight: 800;">{{ item.name | firstLetterUpper | replaceDashWithSpace }}</p>
+                    <div>
+                        <i class="pi pi-cart-minus" style="padding-right: 8px;"></i>
+                        <span class="">{{ objectsQuantities()[item.name]?.count || 0 }}</span>
+                    </div>
+                </div>
+                <div class="item-buy-row">
+                    <h3>${{ item.cost }}</h3>
+                    <div>
+                        <p-button label="Buy Now" icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap"
+                            (onClick)="addToCart(item)" />
+                    </div>
                 </div>
             </div>
-            <div class="item-buy-row">
-                <h3>${{ item.cost }}</h3>
-                <div>
-                    <p-button label="Buy Now" icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" (onClick)="addToCart(item.name)" />
-                </div>
-            </div>
+            <p-divider />
+        }
         </div>
-        <p-divider />
-    }
+        <div id="pokemon-shop-cart">
+            <app-pokemon-bill [cart]="objectsQuantities()"></app-pokemon-bill>
+        </div>
+    </div>
+   
 </div>

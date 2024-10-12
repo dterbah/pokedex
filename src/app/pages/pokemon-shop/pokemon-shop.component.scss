@@ -1,9 +1,21 @@
 :host {
-    width: 80%;
+    width: 90%;
+}
+
+#shop-container {
+    display: flex;
+}
+
+#shop-container > div {
+    flex-grow: 1;
+}
+
+#shop-container > div:first-child {
+    width: 70%;
 }
 
 #item-container {
-    width: 100%;
+    width: 90%;
     height: 100%;
 }
 
@@ -12,6 +24,11 @@
     width: 100%;
     align-items: stretch;
     padding: 10px 0;
+}
+
+.item-search {
+    display: flex;
+    justify-content: center;
 }
 
 .item-description-row {
@@ -37,4 +54,10 @@
 
 .item-buy-row p-button {
     margin-top: auto;
+}
+
+#pokemon-shop-cart {
+    display: flex;
+    padding-left: 1%;
+    justify-content: center;
 }

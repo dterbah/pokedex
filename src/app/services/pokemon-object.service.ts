@@ -23,7 +23,7 @@ export class PokemonObjectService {
       return of(JSON.parse(existingObjects) as PokemonObject[]);
     }
 
-    const url = `${BASE_URL}/item/?offset=0&limit=99999`;
+    const url = `${BASE_URL}/item/?offset=0&limit=10`;
     this.loadingService.start();
 
     return this.http.get<any>(url).pipe(
@@ -55,7 +55,7 @@ export class PokemonObjectService {
         return {
           category: details.category.name,
           cost: details.cost,
-          description: flavorTextEntry ? flavorTextEntry.flavor_text : '',
+          description: flavorTextEntry ? flavorTextEntry.text : '',
           imgUrl: details.sprites.default,
           name: objectName,
         };

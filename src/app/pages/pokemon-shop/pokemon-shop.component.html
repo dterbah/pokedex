@@ -1,1 +1,22 @@
-<p>pokemon-shop works!</p>
+<div id="item-container">
+    @for (item of objects(); track $index) {
+        <div class="item-row">
+            <img [src]="item.imgUrl" width="10%" />
+            <div class="item-description-row">
+                <p>{{ item.category | firstLetterUpper | replaceDashWithSpace }}</p>
+                <p style="font-weight: 800;">{{ item.name | firstLetterUpper | replaceDashWithSpace }}</p>
+                <div>
+                    <i class="pi pi-cart-minus" style="padding-right: 8px;"></i>
+                    <span class="">{{ objectsQuantities[item.name] || 0 }}</span>
+                </div>
+            </div>
+            <div class="item-buy-row">
+                <h3>${{ item.cost }}</h3>
+                <div>
+                    <p-button label="Buy Now" icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap" (onClick)="addToCart(item.name)" />
+                </div>
+            </div>
+        </div>
+        <p-divider />
+    }
+</div>

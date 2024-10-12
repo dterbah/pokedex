@@ -1,0 +1,40 @@
+:host {
+    width: 80%;
+}
+
+#item-container {
+    width: 100%;
+    height: 100%;
+}
+
+.item-row {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    padding: 10px 0;
+}
+
+.item-description-row {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-buy-row {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-width: 20vh;
+}
+
+.item-buy-row h3 {
+    margin: 0;
+    margin-bottom: auto;
+}
+
+.item-buy-row p-button {
+    margin-top: auto;
+}

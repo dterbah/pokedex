@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';

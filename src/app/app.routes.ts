@@ -20,7 +20,7 @@ export const routes: Routes = [
     component: PokemonDetailsComponent,
   },
   {
-    path: 'shop',
+    path: 'shop-simulation',
     component: PokemonShopComponent,
   },
   {

@@ -24,9 +24,9 @@ export class AppBarComponent {
       routerLink: '/home',
     },
     {
-      label: 'Shop',
+      label: 'Shop Simulation',
       icon: 'pi pi-shopping-cart',
-      routerLink: '/shop',
+      routerLink: '/shop-simulation',
     },
   ];
 

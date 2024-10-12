@@ -15,7 +15,7 @@
                     <p style="font-weight: 800;">{{ item.name | firstLetterUpper | replaceDashWithSpace }}</p>
                     <div>
                         <i class="pi pi-cart-minus" style="padding-right: 8px;"></i>
-                        <span class="">{{ objectsQuantities()[item.name]?.count || 0 }}</span>
+                        <span class="">{{ objectsQuantities()[item.name] ? objectsQuantities()[item.name].count : 0  }}</span>
                     </div>
                 </div>
                 <div class="item-buy-row">

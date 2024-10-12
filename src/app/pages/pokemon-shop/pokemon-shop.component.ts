@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { PaginatorModule } from 'primeng/paginator';
 
 import { PokemonObjectService } from '../../services/pokemon-object.service';
 import { FirstLetterUpperPipe } from '../../pipes/first-letter-upper.pipe';
@@ -15,6 +16,7 @@ import { ReplaceDashWithSpacePipe } from '../../pipes/replace-dash-with-space.pi
     DataViewModule,
     ButtonModule,
     DividerModule,
+    PaginatorModule,
     FirstLetterUpperPipe,
     ReplaceDashWithSpacePipe,
   ],
@@ -23,10 +25,23 @@ import { ReplaceDashWithSpacePipe } from '../../pipes/replace-dash-with-space.pi
 })
 export class PokemonShopComponent {
   private objectService = inject(PokemonObjectService);
-
   objects = toSignal(this.objectService.getObjects());
-
   objectsQuantities: any = {};
+
+  // paginator
+  rows = signal(10);
+  first = signal(0);
+  totalRecords = computed(() => this.objects()?.length);
+
+  displayedItems = computed(() => {
+    return this.objects()?.slice(this.first(), this.rows() + this.first());
+  });
+
+  constructor() {
+    effect(() => {
+      console.log(this.displayedItems());
+    });
+  }
 
   addToCart(itemName: string) {
     if (!this.objectsQuantities[itemName]) {
@@ -34,5 +49,10 @@ export class PokemonShopComponent {
     } else {
       this.objectsQuantities[itemName]++;
     }
+  }
+
+  onPageChange(event: any) {
+    this.first.set(event.first);
+    this.rows.set(event.rows);
   }
 }

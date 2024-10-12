@@ -1,5 +1,7 @@
 <div id="item-container">
-    @for (item of objects(); track $index) {
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="first()" [rows]="rows()" [totalRecords]="totalRecords()"
+        [rowsPerPageOptions]="[10, 20, 30]" />
+    @for (item of displayedItems(); track $index) {
         <div class="item-row">
             <img [src]="item.imgUrl" width="10%" />
             <div class="item-description-row">

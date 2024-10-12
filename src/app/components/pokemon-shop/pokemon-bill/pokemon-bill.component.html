@@ -15,5 +15,9 @@
         </div>
 
         <p style="text-align: center;">Thanks for your visit !</p>
+
+        <div style="display: flex; justify-content: center;">
+            <qrcode [qrdata]="qrCodedata()" [errorCorrectionLevel]="'M'"  [imageSrc]="'/assets/img/coin.png'" [imageHeight]="75" [imageWidth]="75"></qrcode>
+        </div>
     }
 </div>

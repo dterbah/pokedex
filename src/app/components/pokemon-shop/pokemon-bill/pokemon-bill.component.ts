@@ -1,4 +1,5 @@
 import { Component, computed, effect, input } from '@angular/core';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { FirstLetterUpperPipe } from '../../../pipes/first-letter-upper.pipe';
 import { ReplaceDashWithSpacePipe } from '../../../pipes/replace-dash-with-space.pipe';
@@ -10,7 +11,7 @@ export interface ShopCart {
 @Component({
   selector: 'app-pokemon-bill',
   standalone: true,
-  imports: [FirstLetterUpperPipe, ReplaceDashWithSpacePipe],
+  imports: [QRCodeModule, FirstLetterUpperPipe, ReplaceDashWithSpacePipe],
   templateUrl: './pokemon-bill.component.html',
   styleUrl: './pokemon-bill.component.scss',
 })
@@ -23,6 +24,10 @@ export class PokemonBillComponent {
       0
     );
   });
+
+  qrCodedata = computed(
+    () => `TOTAL of your fake Pokemon bill : ${this.total()}$`
+  );
 
   constructor() {
     effect(() => {

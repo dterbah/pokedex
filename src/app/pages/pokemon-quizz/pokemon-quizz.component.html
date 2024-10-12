@@ -1,0 +1,14 @@
+<div id="pokemon-quizz-container">
+    @if(monster()) {
+        <p>Who is this Pokemon ? {{ monster()!.name }}</p>
+        <img [src]="monster()!.sprites.front" style="width: 30%;" />
+        <div style="width: 60%;">
+            <input type="text" pInputText [(ngModel)]="search" style="width: 60%; margin-right: 12px;" />
+            <p-button label="Submit" (onClick)="onAnswer()" />
+        </div>
+        @if (error()) {
+            <p>Nop !</p>
+        }
+    }
+   
+</div>

@@ -16,7 +16,7 @@ import {
 import { PokemonResult } from '../result/pokemon.result';
 import { getGenderRatio, toPokemon } from '../utils/pokemon.util';
 import { LoadingService } from './loading.service';
-import { BASE_URL, POKEMON_LIMIT } from './constants';
+import { BASE_URL, POKEMON_COUNT, POKEMON_LIMIT } from './constants';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class PokemonService {
 
   private cache = Array<Pokemon>();
 
-  pokemonCount = signal(0);
+  pokemonCount = signal(1000);
 
   constructor() {}
 
@@ -36,6 +36,7 @@ export class PokemonService {
     this.loadingService.start();
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
+        console.log('result', result);
         this.pokemonCount.set(result.count);
         return result.results;
       }),
@@ -50,7 +51,7 @@ export class PokemonService {
     );
   }
 
-  getPokemonByName(name: string): Observable<Pokemon | undefined> {
+  getPokemonByName(name: string | number): Observable<Pokemon | undefined> {
     const url = `${BASE_URL}/pokemon/${name}`;
     // try to find the pokemon in the cache
     const existingPokemon = this.cache.find((pokemon) => pokemon.name === name);

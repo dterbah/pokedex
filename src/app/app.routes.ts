@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PokemonDetailsComponent } from './pages/pokemon-details/pokemon-details.component';
 import { PokemonShopComponent } from './pages/pokemon-shop/pokemon-shop.component';
+import { PokemonQuizzComponent } from './pages/pokemon-quizz/pokemon-quizz.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'shop-simulation',
     component: PokemonShopComponent,
+  },
+  {
+    path: 'quizz',
+    component: PokemonQuizzComponent,
   },
   {
     path: '**',

@@ -28,6 +28,11 @@ export class AppBarComponent {
       icon: 'pi pi-shopping-cart',
       routerLink: '/shop-simulation',
     },
+    {
+      label: 'Quizz',
+      icon: 'pi pi-question',
+      routerLink: '/quizz',
+    },
   ];
 
   searchPokemon() {

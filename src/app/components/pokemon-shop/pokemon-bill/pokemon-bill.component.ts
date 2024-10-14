@@ -28,10 +28,4 @@ export class PokemonBillComponent {
   qrCodedata = computed(
     () => `TOTAL of your fake Pokemon bill : ${this.total()}$`
   );
-
-  constructor() {
-    effect(() => {
-      console.log(this.total());
-    });
-  }
 }

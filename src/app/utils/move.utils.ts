@@ -4,8 +4,6 @@ const TYPE_BASE_URL =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/sword-shield/';
 
 export const toMove = (data: any): PokemonMove => {
-  console.log('data', data);
-
   // extract type id to find the url
   const { name, url } = data.type;
   const match = url.match(/\/(\d+)\//);

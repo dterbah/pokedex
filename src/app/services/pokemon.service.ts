@@ -61,7 +61,6 @@ export class PokemonService {
     this.loadingService.start();
     return this.http.get<any>(url).pipe(
       switchMap((pokemon) => {
-        console.log('pokemon', pokemon);
         // add the description in the data
         return this.getPokemonSpeciesData(pokemon.name).pipe(
           map((data) => {

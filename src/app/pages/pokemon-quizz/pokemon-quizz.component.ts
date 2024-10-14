@@ -33,15 +33,6 @@ export class PokemonQuizzComponent {
   search = model('');
   error = signal(false);
 
-  constructor() {
-    effect(() => {
-      const currentMonster = this.monster();
-      if (currentMonster) {
-        console.log(currentMonster);
-      }
-    });
-  }
-
   onAnswer() {
     const currentMonster = this.monster();
     if (

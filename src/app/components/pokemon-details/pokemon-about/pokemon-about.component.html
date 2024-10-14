@@ -42,4 +42,7 @@
         }
         
     </p-accordionTab>
+    <p-accordionTab header="Moves">
+        <app-pokemon-moves [movesUrl]="monster()!.moves"></app-pokemon-moves>
+    </p-accordionTab>
 </p-accordion>

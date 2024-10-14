@@ -1,12 +1,15 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { map, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { TableModule } from 'primeng/table';
 import { PokemonMovesService } from '../../../services/pokemon-moves.service';
+import { FirstLetterUpperPipe } from '../../../pipes/first-letter-upper.pipe';
+import { ReplaceDashWithSpacePipe } from '../../../pipes/replace-dash-with-space.pipe';
 
 @Component({
   selector: 'app-pokemon-moves',
   standalone: true,
-  imports: [],
+  imports: [TableModule, FirstLetterUpperPipe, ReplaceDashWithSpacePipe],
   templateUrl: './pokemon-moves.component.html',
   styleUrl: './pokemon-moves.component.scss',
 })
@@ -20,9 +23,4 @@ export class PokemonMovesComponent {
       switchMap((movesUrl) => this.moveService.getMoves(movesUrl))
     )
   );
-
-  constructor() {
-    console.log('ok');
-    effect(() => console.log(this.moves()));
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs';
@@ -9,7 +9,6 @@ import { PokemonDescriptionComponent } from '../../components/pokemon-details/po
 import { PokemonStatChartComponent } from '../../components/pokemon-details/pokemon-stat-chart/pokemon-stat-chart.component';
 import { PokemonAboutComponent } from '../../components/pokemon-details/pokemon-about/pokemon-about.component';
 import { PokemonSwitchComponent } from '../../components/pokemon-details/pokemon-switch/pokemon-switch.component';
-import { PokemonMovesComponent } from '../../components/pokemon-details/pokemon-moves/pokemon-moves.component';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -21,7 +20,6 @@ import { PokemonMovesComponent } from '../../components/pokemon-details/pokemon-
     PokemonStatChartComponent,
     PokemonAboutComponent,
     PokemonSwitchComponent,
-    PokemonMovesComponent,
   ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss',

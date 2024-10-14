@@ -1,6 +1,7 @@
 export interface PokemonMove {
+  id: number;
   name: string;
-  accuracy: number;
+  accuracy: number | undefined;
   power: number;
   pp: number;
   generation: string;

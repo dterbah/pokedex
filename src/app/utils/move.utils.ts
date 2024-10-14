@@ -16,6 +16,7 @@ export const toMove = (data: any): PokemonMove => {
     accuracy: data.accuracy,
     power: data.power,
     pp: data.pp,
+    id: data.id,
     generation: data.generation.name,
     type: {
       name,

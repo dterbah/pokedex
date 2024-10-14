@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -7,6 +7,7 @@ import { FirstLetterUpperPipe } from '../../../pipes/first-letter-upper.pipe';
 import { ReplaceDashWithSpacePipe } from '../../../pipes/replace-dash-with-space.pipe';
 import { PokemonAbilityService } from '../../../services/pokemon-ability.service';
 import { Pokemon } from '../../../models/pokemon.model';
+import { PokemonMovesComponent } from '../pokemon-moves/pokemon-moves.component';
 
 @Component({
   selector: 'app-pokemon-about',
@@ -15,6 +16,7 @@ import { Pokemon } from '../../../models/pokemon.model';
     AccordionModule,
     TableModule,
     FirstLetterUpperPipe,
+    PokemonMovesComponent,
     ReplaceDashWithSpacePipe,
   ],
   templateUrl: './pokemon-about.component.html',

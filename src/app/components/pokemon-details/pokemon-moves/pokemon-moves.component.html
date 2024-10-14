@@ -1,1 +1,36 @@
-<p>pokemon-moves works! {{ movesUrl() }}</p>
+<p-table [value]="moves()!" [paginator]="true" [rows]="20">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" style="width:20%">
+                Name <p-sortIcon field="name" />
+            </th>
+            <th style="width:20%">
+                Type
+            </th>
+            <th pSortableColumn="power" style="width:20%">
+                Power <p-sortIcon field="power" />
+            </th>
+            <th pSortableColumn="accuracy" style="width:20%">
+                Accuracy <p-sortIcon field="accuracy" />
+            </th>
+            <th pSortableColumn="pp" style="width:20%">
+                PP <p-sortIcon field="pp" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-move>
+        <tr>
+            <td>{{ move.name | firstLetterUpper | replaceDashWithSpace}}</td>
+            <td><img [src]="move.type.url" width="50%" /></td>
+            <td>{{ move.power || "-" }}</td>
+            <td>
+                @if(move.accuracy) {
+                {{ move.accuracy }} %
+                } @else {
+                -
+                }
+            </td>
+            <td>{{ move.pp }}</td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -6,7 +6,7 @@ import { LoadingService } from './loading.service';
 import { BASE_URL } from './constants';
 
 const OBJECTS_STORAGE_KEY = 'objects';
-const OBJECT_LIMIT = 200;
+const OBJECT_LIMIT = 500;
 
 @Injectable({
   providedIn: 'root',

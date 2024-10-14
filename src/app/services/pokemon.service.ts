@@ -36,7 +36,6 @@ export class PokemonService {
     this.loadingService.start();
     return this.http.get<PokemonResult>(url).pipe(
       map((result: PokemonResult) => {
-        console.log('result', result);
         this.pokemonCount.set(result.count);
         return result.results;
       }),
@@ -61,15 +60,16 @@ export class PokemonService {
 
     this.loadingService.start();
     return this.http.get<any>(url).pipe(
-      switchMap((pokemon) =>
+      switchMap((pokemon) => {
+        console.log('pokemon', pokemon);
         // add the description in the data
-        this.getPokemonSpeciesData(pokemon.name).pipe(
+        return this.getPokemonSpeciesData(pokemon.name).pipe(
           map((data) => {
             const pokemonWithDescription = { ...pokemon, ...data };
             return toPokemon(pokemonWithDescription);
           })
-        )
-      ),
+        );
+      }),
       tap((pokemon) => {
         this.cache.push(pokemon);
       }),

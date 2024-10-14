@@ -6,6 +6,7 @@ import { LoadingService } from './loading.service';
 import { BASE_URL } from './constants';
 
 const OBJECTS_STORAGE_KEY = 'objects';
+const OBJECT_LIMIT = 200;
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class PokemonObjectService {
       return of(JSON.parse(existingObjects) as PokemonObject[]);
     }
 
-    const url = `${BASE_URL}/item/?offset=0&limit=100`;
+    const url = `${BASE_URL}/item/?offset=0&limit=${OBJECT_LIMIT}`;
     this.loadingService.start();
 
     return this.http.get<any>(url).pipe(

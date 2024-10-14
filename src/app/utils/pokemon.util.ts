@@ -14,6 +14,7 @@ export const toPokemon = (data: any): Pokemon => {
     height,
     weight,
     gender,
+    moves,
   } = data;
 
   return {
@@ -32,6 +33,7 @@ export const toPokemon = (data: any): Pokemon => {
       height: height * 10,
       weight,
     },
+    moves: moves.map((move: any) => move.move.url),
     stats: {
       hp: stats[0].base_stat,
       attack: stats[1].base_stat,

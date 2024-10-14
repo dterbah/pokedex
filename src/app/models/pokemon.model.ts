@@ -27,6 +27,7 @@ export interface Pokemon {
   stats: PokemonStats;
   details: PokemonDetails;
   gender: PokemonGenderRatio;
+  moves: string[];
   abilities: { hidden: boolean; name: string }[];
   sprites: {
     back: string;
